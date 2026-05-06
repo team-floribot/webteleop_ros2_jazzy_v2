@@ -1,0 +1,19 @@
+version: "3.9"    # supports Swarm-style deploy section
+
+services:
+
+  ros_control:
+    build: ./ros_control
+    container_name: ros_control
+    ports:
+      - "9090:9090"
+    networks:
+      - rosnet
+
+  turtlesim:
+    build: ./ros_turtlesim
+    container_name: turtlesim
+    networks:
+      - rosnet
+networks:
+  rosnet:
