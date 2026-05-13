@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ROS Web Control</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/roslib/build/roslib.min.js"></script>
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+<div class="app">
+
+    <!-- ================= TOP BAR ================= -->
+    <div class="top-bar">
+        <!-- Menu icon to open settings -->
+        <div class="menu-icon" id="openSettings">☰</div>
+        <img src="assets/uni_logo.png" class="uni-logo"> <!-- logo png in folder -->
+    </div>
+
+    <!-- ================= SETTINGS PANEL ================= -->
+    <!-- Left slide-in settings drawer -->
+    <div class="settings-overlay" id="settingsOverlay"></div>
+
+    <div class="settings-panel" id="settingsPanel">
+        <h3>SETTINGS</h3>
+
+        <!-- === Robot limits === -->
+        <div class="settings-group">
+            <label>Max Linear Velocity</label>
+            <div class="settings-row">
+                <input type="number" id="maxLinearInput" step="0.01" value="1.0">
+                <span class="unit">m/s</span>
+            </div>
+        </div>
+
+        <div class="settings-group">
+            <label>Max Angular Velocity</label>
+            <div class="settings-row">
+                <input type="number" id="maxAngularInput" step="0.01" value="1.0">
+                <span class="unit">rad/s</span>
+            </div>
+        </div>
+
+        <!-- === Speed scaling === -->
+        <div class="settings-group">
+            <label>Speed Limit</label>
+            <input type="range" min="0" max="100" value="50" id="speedLimit">
+            <span id="speedLimitValue">50%</span>
+        </div>
+
+        <!-- === Connection settings === -->
+        <div class="settings-group">
+            <label>
+                <input type="checkbox" id="useLocalhost" checked>
+                <span>Use localhost</span>
+            </label>
+        </div>
+
+        <div class="settings-group">
+            <label>ROS Bridge IP Adress</label>
+            <input
+                type="text"
+                id="rosIpInput"
+                placeholder="IP / Address"
+                disabled
+            >
+        </div>
+
+        <div class="settings-group">
+            <button id="ConnectBtn">Connect</button>
+            <p id="settingsStatus">Not connected</p>
+        </div>
+
+        <div class="settings-group">
+            <label for="PadSize">Pad size</label>
+            <input type="range" id="PadSize" min="50" max="300" value="100">
+            <span id="padSizeValue">100</span>
+            <span class="unit">px</span>
+        </div>
+
+    </div>
+
+    <!-- ================= STATUS BAR ================= -->
+    <!-- Information from Robot -->
+    <div class="status-bar">
+        <div class="status-item">
+            <label>Linear X:</label>
+            <span id="statusLinear">0.00</span>
+            <label> m/s</label>
+        </div>
+
+        <div class="status-item">
+            <label>Angular Z:</label>
+            <span id="statusAngular">0.00</span>
+            <label> rad/s</label>
+        </div>
+
+        <div class="status-item battery-display">
+            <div class="battery-bars" id="batteryBars">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <span id="batteryValue">50%</span> <!-- placeholder -->
+        </div>
+    </div>
+
+    <!-- ================= CONNECTION STATUS ================= -->
+    <!-- Visible at top center -->
+    <div class="connection-block">
+        <p id="status">Not connected</p>
+    </div>
+
+    <!-- ================= MODE SELECTOR ================= -->
+    <div class="modes">
+        <div class="mode-btn active" data-mode="1">1</div>
+        <div class="mode-btn" data-mode="2">2</div>
+        <div class="mode-btn" data-mode="3">3</div>
+    </div>
+
+    <!-- ================= VIDEO FEEDBACK ================= -->     
+    <div class="video-section">
+        <img id="videoFeed" src="assets/disconnected.png" alt="Video Feed">
+    </div>
+
+    <!-- ================= MAIN CONTROL AREA ================= -->
+    <div class="control-row">
+        
+        <button id="emergencyBtn" class="emergency">
+            STOP
+        </button>
+
+        <div class="joystick">
+            <div class="joy-base"></div>
+            <div class="joy-pad"></div>
+            <div class="joy-knob" id="joyKnob"></div>
+        
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
